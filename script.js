@@ -72,14 +72,19 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
     
-        // Controles táctiles para móviles
-        document.getElementById("up").addEventListener("click", () => newDirection = { x: 0, y: -1 });
-        document.getElementById("down").addEventListener("click", () => newDirection = { x: 0, y: 1 });
-        document.getElementById("left").addEventListener("click", () => newDirection = { x: -1, y: 0 });
-        document.getElementById("right").addEventListener("click", () => newDirection = { x: 1, y: 0 });
-    
-        drawGame();
-    }
+       document.getElementById("up").addEventListener("click", () => {
+    if (direction.y === 0) newDirection = { x: 0, y: -1 };
+});
+document.getElementById("down").addEventListener("click", () => {
+    if (direction.y === 0) newDirection = { x: 0, y: 1 };
+});
+document.getElementById("left").addEventListener("click", () => {
+    if (direction.x === 0) newDirection = { x: -1, y: 0 };
+});
+document.getElementById("right").addEventListener("click", () => {
+    if (direction.x === 0) newDirection = { x: 1, y: 0 };
+});
+
     
     function updateGame() {
         if (!gameRunning) return;
@@ -129,13 +134,22 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.fillText(`🍏: ${applesEaten}  🎯 Récord: ${record}`, 10, 20);
     }
 
-    function changeDirection(event) {
-        const key = event.key.toLowerCase();
-        if (key === "arrowup" || key === "w") newDirection = { x: 0, y: -1 };
-        if (key === "arrowdown" || key === "s") newDirection = { x: 0, y: 1 };
-        if (key === "arrowleft" || key === "a") newDirection = { x: -1, y: 0 };
-        if (key === "arrowright" || key === "d") newDirection = { x: 1, y: 0 };
+   function changeDirection(event) {
+    const key = event.key.toLowerCase();
+    
+    if ((key === "arrowup" || key === "w") && direction.y === 0) {
+        newDirection = { x: 0, y: -1 };
     }
+    if ((key === "arrowdown" || key === "s") && direction.y === 0) {
+        newDirection = { x: 0, y: 1 };
+    }
+    if ((key === "arrowleft" || key === "a") && direction.x === 0) {
+        newDirection = { x: -1, y: 0 };
+    }
+    if ((key === "arrowright" || key === "d") && direction.x === 0) {
+        newDirection = { x: 1, y: 0 };
+    }
+}
 
     function generateFood() {
         return {
