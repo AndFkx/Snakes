@@ -7,11 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const playButton = document.getElementById("playButton");
     const customizeButton = document.getElementById("customizeButton");
     const startGameButton = document.getElementById("startGameButton");
-    const snakeColorInput = document.getElementById("snakeColor"); 
+    const snakeColorInput = document.getElementById("snakeColor");
     const bgColorInput = document.getElementById("bgColor");
 
     let snakeColor = "#00ff00";
     let bgColor = "#000000";
+    let gameInterval = null; // Para evitar múltiples intervalos
 
     const appleImage = new Image();
     appleImage.src = "amnzana.png";
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let snake = [{ x: tileSize * 5, y: tileSize * 5 }];
     let food = generateFood();
     let direction = { x: 0, y: 0 };
-    let newDirection = direction;
+    let newDirection = { x: 0, y: 0 };
     let gameRunning = false;
     let applesEaten = 0;
     let record = localStorage.getItem("record") ? parseInt(localStorage.getItem("record")) : 0;
@@ -53,10 +54,24 @@ document.addEventListener("DOMContentLoaded", function () {
         canvas.style.display = "block";
         controls.style.display = "flex";
         gameRunning = true;
+        snake = [{ x: tileSize * 5, y: tileSize * 5 }];
+        direction = { x: 1, y: 0 }; // La serpiente empieza moviéndose a la derecha
+        newDirection = direction;
+        applesEaten = 0;
+        food = generateFood();
+        clearInterval(gameInterval); // Elimina intervalos anteriores
+        gameInterval = setInterval(updateGame, 120);
         document.addEventListener("keydown", changeDirection);
-        setInterval(updateGame, 120);
+    
+        // Controles táctiles para móviles
+        document.getElementById("up").addEventListener("click", () => newDirection = { x: 0, y: -1 });
+        document.getElementById("down").addEventListener("click", () => newDirection = { x: 0, y: 1 });
+        document.getElementById("left").addEventListener("click", () => newDirection = { x: -1, y: 0 });
+        document.getElementById("right").addEventListener("click", () => newDirection = { x: 1, y: 0 });
+    
+        drawGame();
     }
-
+    
     function updateGame() {
         if (!gameRunning) return;
 
@@ -96,12 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.drawImage(appleImage, food.x - (appleSize - tileSize) / 2, food.y - (appleSize - tileSize) / 2, appleSize, appleSize);
 
         snake.forEach((segment, index) => {
-            ctx.beginPath();
             ctx.fillStyle = index === 0 ? "yellow" : snakeColor;
-            ctx.roundRect(segment.x, segment.y, tileSize, tileSize, 6);
-            ctx.fill();
-            ctx.strokeStyle = "darkgreen";
-            ctx.stroke();
+            ctx.fillRect(segment.x, segment.y, tileSize, tileSize);
         });
 
         ctx.fillStyle = "white";
@@ -118,7 +129,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateFood() {
-        return { x: Math.floor(Math.random() * (canvas.width / tileSize)) * tileSize, y: Math.floor(Math.random() * (canvas.height / tileSize)) * tileSize };
+        return {
+            x: Math.floor(Math.random() * (canvas.width / tileSize)) * tileSize,
+            y: Math.floor(Math.random() * (canvas.height / tileSize)) * tileSize
+        };
     }
 
     function snakeCollision(head) {
@@ -127,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function gameOver() {
         gameRunning = false;
+        clearInterval(gameInterval);
         alert(`¡Game Over! 🍏 Comiste ${applesEaten} manzanas. 🎯 Récord: ${record}`);
         location.reload();
     }
