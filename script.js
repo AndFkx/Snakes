@@ -165,7 +165,7 @@ document.getElementById("right").addEventListener("click", () => {
     function gameOver() {
         gameRunning = false;
         clearInterval(gameInterval);
-        alert(`¡Game Over! 🍏 Comiste ${applesEaten} manzanas. 🎯 Récord: ${record}`);
+        alert(`¡Vea pues, No eres tan mala! 🍏 Comiste ${applesEaten} manzanas. 🎯 Récord: ${record}`);
         location.reload();
     }
 });
