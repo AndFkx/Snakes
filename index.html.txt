@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de la Culebrita</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Menú Principal -->
+    <div id="mainMenu">
+        <h1>Snake Game Karol's version <3</h1>
+        <button id="playButton">Jugar</button>
+        <button id="customizeButton">Personalizar</button>
+    </div>
+
+    <!-- Menú de Personalización -->
+    <div id="menu" style="display: none;">
+        <h3>Personalización</h3>
+        <label for="snakeColor">Color de la serpiente:</label>
+        <input type="color" id="snakeColor" value="#00ff00">
+
+        <label for="bgColor">Color de fondo:</label>
+        <input type="color" id="bgColor" value="#000000">
+
+        <button id="startGameButton">Jugar</button>
+    </div>
+
+    <!-- Lienzo del Juego -->
+    <canvas id="gameCanvas" style="display: none;"></canvas>
+
+    <!-- Controles para móvil -->
+    <div class="controls" style="display: none;">
+        <button id="up">⬆️</button>
+        <div>
+            <button id="left">⬅️</button>
+            <button id="right">➡️</button>
+        </div>
+        <button id="down">⬇️</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
