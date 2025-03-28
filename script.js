@@ -50,18 +50,27 @@ document.addEventListener("DOMContentLoaded", function () {
         startGame();
     });
 
-    function startGame() {
-        canvas.style.display = "block";
-        controls.style.display = "flex";
-        gameRunning = true;
-        snake = [{ x: tileSize * 5, y: tileSize * 5 }];
-        direction = { x: 1, y: 0 }; // La serpiente empieza moviéndose a la derecha
-        newDirection = direction;
-        applesEaten = 0;
-        food = generateFood();
-        clearInterval(gameInterval); // Elimina intervalos anteriores
-        gameInterval = setInterval(updateGame, 120);
-        document.addEventListener("keydown", changeDirection);
+   function startGame() {
+    canvas.style.display = "block";
+    controls.style.display = "flex";
+    gameRunning = true;
+    snake = [{ x: tileSize * 5, y: tileSize * 5 }];
+    direction = { x: 1, y: 0 };
+    newDirection = direction;
+    applesEaten = 0;
+    food = generateFood();
+    
+    clearInterval(gameInterval);
+
+    // Detectar si es móvil
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const speed = isMobile ? 180 : 120; // Más lento en móvil
+
+    gameInterval = setInterval(updateGame, speed);
+    document.addEventListener("keydown", changeDirection);
+    drawGame();
+}
+
     
         // Controles táctiles para móviles
         document.getElementById("up").addEventListener("click", () => newDirection = { x: 0, y: -1 });
