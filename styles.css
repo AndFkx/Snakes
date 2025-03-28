@@ -11,6 +11,11 @@ body {
     margin: 0;
     padding: 0;
 }
+#menuLogo {
+    width: 250px; /* Ajusta el tamaño */
+    height: auto;
+    margin-bottom: 15px; /* Espacio entre la imagen y el título */
+}
 
 /* Menús centrados */
 #mainMenu, #menu {
@@ -123,6 +128,10 @@ h2 {
 
 input[type="color"] {
     border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}ne;
     width: 40px;
     height: 40px;
     cursor: pointer;
