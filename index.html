@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de la Culebrita</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -17,7 +16,7 @@
 
     <!-- Menú de Personalización -->
     <div id="menu" style="display: none;">
-        <h3>Personalización</h3>
+        <h2>Personalización</h2>
         <label for="snakeColor">Color de la serpiente:</label>
         <input type="color" id="snakeColor" value="#00ff00">
 
@@ -30,17 +29,20 @@
     <!-- Lienzo del Juego -->
     <canvas id="gameCanvas" style="display: none;"></canvas>
 
-    <!-- Controles para móvil -->
-    <div class="controls" style="display: none;">
-        <button id="up">⬆️</button>
-        <div>
-            <button id="left">⬅️</button>
-            <button id="right">➡️</button>
-        </div>
-        <button id="down">⬇️</button>
+   <!-- Controles para móvil (Estilo Arcade) -->
+<div class="controls" style="display: none;">
+    <div class="control-row">
+        <button id="up" class="control-btn">▲</button>
     </div>
+    <div class="control-row">
+        <button id="left" class="control-btn">◀</button>
+        <button id="right" class="control-btn">▶</button>
+    </div>
+    <div class="control-row">
+        <button id="down" class="control-btn">▼</button>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
