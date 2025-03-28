@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function gameOver() {
         gameRunning = false;
-        alert(`¡Pa la proxima lo haces mejor wapa! 🍏 Comiste ${applesEaten} manzanas. 🎯 Récord: ${record}`);
+        alert(`¡Game Over! 🍏 Comiste ${applesEaten} manzanas. 🎯 Récord: ${record}`);
         location.reload();
     }
 });
