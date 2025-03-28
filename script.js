@@ -1,36 +1,3 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-// Tamaño del tablero
-const tileSize = 20;
-canvas.width = 400;
-canvas.height = 400;
-
-// Culebra y comida
-let snake = [{ x: 200, y: 200 }];
-let food = generateFood();
-let direction = { x: 0, y: 0 };
-let newDirection = { x: 0, y: 0 };
-let gameRunning = true;
-
-// Control del juego
-document.addEventListener("keydown", changeDirection);
-setInterval(updateGame, 100);
-
-function updateGame() {
-    if (!gameRunning) return;
-
-    // Actualizar dirección
-    direction = newDirection;
-
-    // Mover culebra
-    let head = { x: snake[0].x + direction.x * tileSize, y: snake[0].y + direction.y * tileSize };
-    
-    // Verificar colisiones
-    if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height || snakeCollision(head)) {
-        gameOver();
-        return;
-    }
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
