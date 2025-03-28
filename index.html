@@ -4,11 +4,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de la Culebrita</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"></script>
+
+    <script>
+        // Configurar Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDuzrvHmIVsoBOda3eVcNWfBbDYYO7pPHY",
+            authDomain: "taller-42947.firebaseapp.com",
+            projectId: "taller-42947",
+            storageBucket: "taller-42947.firebasestorage.app",
+            messagingSenderId: "380282833448",
+            appId: "1:380282833448:web:55db83e13a43d35877031d"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 </head>
 <body>
     <!-- Menú Principal -->
     <div id="mainMenu">
-        
         <h1>Snake</h1>
         <button id="playButton">Jugar</button>
         <button id="customizeButton">Personalizar</button>
@@ -29,19 +48,25 @@
     <!-- Lienzo del Juego -->
     <canvas id="gameCanvas" style="display: none;"></canvas>
 
-   <!-- Controles para móvil (Estilo Arcade) -->
-<div class="controls" style="display: none;">
-    <div class="control-row">
-        <button id="up" class="control-btn">▲</button>
+    <!-- Controles para móvil (Estilo Arcade) -->
+    <div class="controls" style="display: none;">
+        <div class="control-row">
+            <button id="up" class="control-btn">▲</button>
+        </div>
+        <div class="control-row">
+            <button id="left" class="control-btn">◀</button>
+            <button id="right" class="control-btn">▶</button>
+        </div>
+        <div class="control-row">
+            <button id="down" class="control-btn">▼</button>
+        </div>
     </div>
-    <div class="control-row">
-        <button id="left" class="control-btn">◀</button>
-        <button id="right" class="control-btn">▶</button>
-    </div>
-    <div class="control-row">
-        <button id="down" class="control-btn">▼</button>
-    </div>
-</div>
+
+    <!-- Script del juego -->
+    <script src="script.js"></script>
+</body>
+</html>
+
 
     <script src="script.js"></script>
 </body>
