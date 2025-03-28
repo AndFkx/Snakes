@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const playButton = document.getElementById("playButton");
     const customizeButton = document.getElementById("customizeButton");
     const startGameButton = document.getElementById("startGameButton");
-    const snakeColorInput = document.getElementById("snakeColor");
+    const snakeColorInput = document.getElementById("snakeColor"); 
     const bgColorInput = document.getElementById("bgColor");
 
     let snakeColor = "#00ff00";
