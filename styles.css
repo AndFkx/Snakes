@@ -11,11 +11,7 @@ body {
     margin: 0;
     padding: 0;
 }
-#menuLogo {
-    width: 250px; /* Ajusta el tamaño */
-    height: auto;
-    margin-bottom: 15px; /* Espacio entre la imagen y el título */
-}
+
 
 /* Menús centrados */
 #mainMenu, #menu {
