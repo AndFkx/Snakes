@@ -34,14 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
         apiKey: "AIzaSyDuzrvHmIVsoBOda3eVcNWfBbDYYO7pPHY",
         authDomain: "taller-42947.firebaseapp.com",
         projectId: "taller-42947",
-        storageBucket: "taller-42947.firebasestorage.app",
+        storageBucket: "taller-42947.appspot.com",
         messagingSenderId: "380282833448",
         appId: "1:380282833448:web:55db83e13a43d35877031d"
     };
 
     firebase.initializeApp(firebaseConfig);
 
-    document.addEventListener("keydown", changeDirection); // Solo una vez
+    document.addEventListener("keydown", changeDirection);
+
+    // Controles táctiles
+    document.getElementById("up").addEventListener("click", () => { if (direction.y === 0) newDirection = { x: 0, y: -1 }; });
+    document.getElementById("down").addEventListener("click", () => { if (direction.y === 0) newDirection = { x: 0, y: 1 }; });
+    document.getElementById("left").addEventListener("click", () => { if (direction.x === 0) newDirection = { x: -1, y: 0 }; });
+    document.getElementById("right").addEventListener("click", () => { if (direction.x === 0) newDirection = { x: 1, y: 0 }; });
 
     playButton.addEventListener("click", function () {
         mainMenu.style.display = "none";
@@ -113,13 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Dibujar manzana como círculo rojo
         ctx.beginPath();
         ctx.fillStyle = "red";
         ctx.arc(food.x + tileSize / 2, food.y + tileSize / 2, tileSize / 2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Dibujar serpiente
         snake.forEach((segment, index) => {
             ctx.fillStyle = index === 0 ? "yellow" : snakeColor;
             ctx.fillRect(segment.x, segment.y, tileSize, tileSize);
