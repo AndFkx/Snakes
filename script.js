@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
+    ctx.imageSmoothingEnabled = false;
+
     const mainMenu = document.getElementById("mainMenu");
     const menu = document.getElementById("menu");
     const controls = document.querySelector(".controls");
@@ -108,8 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function drawGame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
