@@ -14,9 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let bgColor = "#000000";
     let gameInterval = null;
 
-    const appleImage = new Image();
-    appleImage.src = "amnzana.png";
-
     const tileSize = 20;
     const canvasSize = Math.min(window.innerWidth * 0.9, 400);
     canvas.width = canvasSize;
@@ -30,20 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let applesEaten = 0;
     let record = localStorage.getItem("record") ? parseInt(localStorage.getItem("record")) : 0;
 
-    // Firebase Config
-    const firebaseConfig = {
-        apiKey: "AIzaSyDuzrvHmIVsoBOda3eVcNWfBbDYYO7pPHY",
-        authDomain: "taller-42947.firebaseapp.com",
-        projectId: "taller-42947",
-        storageBucket: "taller-42947.firebasestorage.app",
-        messagingSenderId: "380282833448",
-        appId: "1:380282833448:web:55db83e13a43d35877031d"
-    };
-
-    // Inicializar Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Botón "Jugar" en el menú principal
+    // Eventos del menú
     playButton.addEventListener("click", function () {
         mainMenu.style.display = "none";
         startGame();
@@ -61,6 +45,20 @@ document.addEventListener("DOMContentLoaded", function () {
         startGame();
     });
 
+    // Controles móviles
+    document.getElementById("up").addEventListener("click", () => {
+        if (direction.y === 0) newDirection = { x: 0, y: -1 };
+    });
+    document.getElementById("down").addEventListener("click", () => {
+        if (direction.y === 0) newDirection = { x: 0, y: 1 };
+    });
+    document.getElementById("left").addEventListener("click", () => {
+        if (direction.x === 0) newDirection = { x: -1, y: 0 };
+    });
+    document.getElementById("right").addEventListener("click", () => {
+        if (direction.x === 0) newDirection = { x: 1, y: 0 };
+    });
+
     function startGame() {
         canvas.style.display = "block";
         controls.style.display = "flex";
@@ -70,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         newDirection = direction;
         applesEaten = 0;
         food = generateFood();
-        
+
         clearInterval(gameInterval);
 
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
@@ -115,7 +113,12 @@ document.addEventListener("DOMContentLoaded", function () {
     function drawGame() {
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(appleImage, food.x, food.y, tileSize, tileSize);
+
+        // Dibujar la "manzana" como círculo rojo
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.arc(food.x + tileSize / 2, food.y + tileSize / 2, tileSize / 2, 0, Math.PI * 2);
+        ctx.fill();
 
         snake.forEach((segment, index) => {
             ctx.fillStyle = index === 0 ? "yellow" : snakeColor;
@@ -153,4 +156,5 @@ document.addEventListener("DOMContentLoaded", function () {
         location.reload();
     }
 });
+
 
