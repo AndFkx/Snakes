@@ -27,7 +27,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let applesEaten = 0;
     let record = localStorage.getItem("record") ? parseInt(localStorage.getItem("record")) : 0;
 
-    // Eventos del menú
+    // Firebase Config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDuzrvHmIVsoBOda3eVcNWfBbDYYO7pPHY",
+        authDomain: "taller-42947.firebaseapp.com",
+        projectId: "taller-42947",
+        storageBucket: "taller-42947.firebasestorage.app",
+        messagingSenderId: "380282833448",
+        appId: "1:380282833448:web:55db83e13a43d35877031d"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    document.addEventListener("keydown", changeDirection); // Solo una vez
+
     playButton.addEventListener("click", function () {
         mainMenu.style.display = "none";
         startGame();
@@ -43,20 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
         bgColor = bgColorInput.value;
         menu.style.display = "none";
         startGame();
-    });
-
-    // Controles móviles
-    document.getElementById("up").addEventListener("click", () => {
-        if (direction.y === 0) newDirection = { x: 0, y: -1 };
-    });
-    document.getElementById("down").addEventListener("click", () => {
-        if (direction.y === 0) newDirection = { x: 0, y: 1 };
-    });
-    document.getElementById("left").addEventListener("click", () => {
-        if (direction.x === 0) newDirection = { x: -1, y: 0 };
-    });
-    document.getElementById("right").addEventListener("click", () => {
-        if (direction.x === 0) newDirection = { x: 1, y: 0 };
     });
 
     function startGame() {
@@ -75,8 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const speed = isMobile ? 180 : 120;
 
         gameInterval = setInterval(updateGame, speed);
-        document.addEventListener("keydown", changeDirection);
-        drawGame();
     }
 
     function updateGame() {
@@ -111,15 +108,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function drawGame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Dibujar la "manzana" como círculo rojo
-        ctx.fillStyle = "red";
+        // Dibujar manzana como círculo rojo
         ctx.beginPath();
+        ctx.fillStyle = "red";
         ctx.arc(food.x + tileSize / 2, food.y + tileSize / 2, tileSize / 2, 0, Math.PI * 2);
         ctx.fill();
 
+        // Dibujar serpiente
         snake.forEach((segment, index) => {
             ctx.fillStyle = index === 0 ? "yellow" : snakeColor;
             ctx.fillRect(segment.x, segment.y, tileSize, tileSize);
@@ -156,4 +156,3 @@ document.addEventListener("DOMContentLoaded", function () {
         location.reload();
     }
 });
-
